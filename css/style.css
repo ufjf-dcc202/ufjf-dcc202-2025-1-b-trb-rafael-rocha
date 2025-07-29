@@ -1,3 +1,17 @@
+#sementes button.semente-selecionada {
+    background: #ffe0b2;
+    outline: 2px solid var(--cor-borda-hover);
+}
+/* Aviso visual de planta prestes a morrer */
+.planta-perigo {
+    animation: perigoPisca 0.5s steps(1) infinite alternate;
+    background: #ff3c3c !important;
+}
+
+@keyframes perigoPisca {
+    from { filter: brightness(1); }
+    to { filter: brightness(0.5); }
+}
 :root {
     --fonte-ui: monospace;
     --cor-fundo-ui: rgba(255,255,255,0.8);

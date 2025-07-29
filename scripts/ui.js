@@ -60,13 +60,21 @@ function aoClicarCelula(celula) {
         window.limparEstadoPlantaCelula(celula);
         celula.className = '';
         celula.innerHTML = '';
-    } else if (celula.className === '') {
+        return;
+    }
+    // Só prepara o solo se NÃO houver semente selecionada
+    if (celula.className === '' && !sementeSelecionada) {
         window.removerSpritePlantaCelula(celula);
         window.limparEstadoPlantaCelula(celula);
         celula.className = 'preparado';
         celula.innerHTML = '';
+        return;
     }
-    if (celula.className === 'preparado' && sementeSelecionada) {
+    // Só permite plantar se a célula estiver preparada
+    if (sementeSelecionada) {
+        if (celula.className !== 'preparado') {
+            return;
+        }
         let preco = 7;
         const botao = Array.from(botoesSementes).find(b => b.getAttribute('data-semente') === sementeSelecionada);
         if (botao && botao.hasAttribute('data-preco')) {
@@ -80,6 +88,7 @@ function aoClicarCelula(celula) {
             window.adicionarSpritePlantaCelula(celula, sementeSelecionada);
             window.estadoPlantas[key] = { tipo: sementeSelecionada, fase: 1, regado: false, ticks: 0 };
         }
+        return;
     }
 }
 
@@ -98,9 +107,16 @@ function selecionarSemente(botao) {
         modoRegar = false;
         botaoRegar.style.background = '';
     }
-    sementeSelecionada = botao.getAttribute('data-semente');
-    botoesSementes.forEach(b => b.style.outline = '');
-    botao.style.outline = '2px solid #c25c09';
+    const semente = botao.getAttribute('data-semente');
+    if (sementeSelecionada === semente) {
+        // Se já está selecionada, desmarca
+        sementeSelecionada = null;
+        botoesSementes.forEach(b => b.classList.remove('semente-selecionada'));
+        return;
+    }
+    sementeSelecionada = semente;
+    botoesSementes.forEach(b => b.classList.remove('semente-selecionada'));
+    botao.classList.add('semente-selecionada');
 }
 
 function alternarModoRegar() {

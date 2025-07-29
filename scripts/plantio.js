@@ -1,5 +1,5 @@
-// Quantidade máxima de ticks sem regar antes da planta morrer
-const TICKS_SEM_AGUA_MORRE = 3;
+const CLASSE_AVISO_MORTE = 'planta-perigo';
+const TICKS_SEM_AGUA_MORRE = 10;
 window.dinheiroJogador = 7;
 
 const estadoPlantas = {};
@@ -15,12 +15,14 @@ setInterval(() => {
     window.tickAtual++;
     for (const key in estadoPlantas) {
         const planta = estadoPlantas[key];
-        // Inicializa contador de ticks sem água se não existir
         if (planta.ticksSemAgua === undefined) planta.ticksSemAgua = 0;
         if (planta.fase < FASES_POR_PLANTA) {
+            const [linha, coluna] = key.split('-').map(Number);
+            const celula = tabelaCanteiro.rows[linha].cells[coluna];
             if (planta.regado) {
                 planta.ticks++;
-                planta.ticksSemAgua = 0; // reset ao regar
+                planta.ticksSemAgua = 0;
+                celula.classList.remove(CLASSE_AVISO_MORTE);
                 if (planta.ticks >= TEMPO_PARA_AVANCAR) {
                     planta.fase++;
                     planta.ticks = 0;
@@ -30,10 +32,15 @@ setInterval(() => {
                 }
             } else {
                 planta.ticksSemAgua++;
+                // Adiciona aviso visual 5 tick antes de morrer
+                if (planta.ticksSemAgua === TICKS_SEM_AGUA_MORRE - 3) {
+                    celula.classList.add(CLASSE_AVISO_MORTE);
+                }
+                if (planta.ticksSemAgua < TICKS_SEM_AGUA_MORRE - 3) {
+                    celula.classList.remove(CLASSE_AVISO_MORTE);
+                }
                 if (planta.ticksSemAgua >= TICKS_SEM_AGUA_MORRE) {
-                    // Planta morre
-                    const [linha, coluna] = key.split('-').map(Number);
-                    const celula = tabelaCanteiro.rows[linha].cells[coluna];
+                    celula.classList.remove(CLASSE_AVISO_MORTE);
                     removerSpritePlantaCelula(celula);
                     limparEstadoPlantaCelula(celula);
                     celula.className = '';
