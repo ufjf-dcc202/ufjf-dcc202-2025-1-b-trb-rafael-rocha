@@ -39,6 +39,21 @@
             outline: 2px solid #2196f3;
             cursor: pointer;
         }
+        table.canteiro td.regado {
+            box-shadow: 0 0 0 3px #2196f3 inset;
+        }
+        #acoes {
+            text-align: center;
+            margin-bottom: 12px;
+        }
+        #acoes button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        #acoes button:hover {
+            outline: 2px solid #c25c09;
+        }
         #sementes {
             text-align: center;
             margin-bottom: 16px;
@@ -56,6 +71,9 @@
 </head>
 <body>
     <h1>ICEDew Valley</h1>
+    <div id="acoes">
+        <button id="btn-regar">Regar</button>
+    </div>
     <div id="sementes">
         <button data-semente="cenoura">Cenoura</button>
         <button data-semente="beterraba">Beterraba</button>
@@ -80,6 +98,10 @@
                     celula.className = 'erva';
                 }
                 celula.addEventListener('click', function() {
+                    if (modoRegar && (celula.className === 'preparado' || celula.className === 'cenoura' || celula.className === 'beterraba' || celula.className === 'batata')) {
+                        celula.classList.add('regado');
+                        return;
+                    }
                     if (celula.className === 'pedra' || celula.className === 'erva') {
                         celula.className = '';
                     } else if (celula.className === '') {
@@ -103,6 +125,11 @@
                 botao.style.outline = '2px solid #c25c09';
             });
         });
+        let modoRegar = false;
+        document.getElementById('btn-regar').onclick = function() {
+            modoRegar = !modoRegar;
+            this.style.background = modoRegar ? '#2196f3' : '';
+        };
     </script>
 </body>
 </html>
