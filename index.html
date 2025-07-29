@@ -23,6 +23,9 @@
         table.canteiro td.erva {
             background: #4caf50;
         }
+        table.canteiro td.preparado {
+            background: #c25c09;
+        }
         table.canteiro td:hover {
             outline: 2px solid #2196f3;
             cursor: pointer;
@@ -52,6 +55,8 @@
                 celula.addEventListener('click', function() {
                     if (celula.className === 'pedra' || celula.className === 'erva') {
                         celula.className = '';
+                    } else if (celula.className === '') {
+                        celula.className = 'preparado';
                     }
                 });
                 linha.appendChild(celula);
