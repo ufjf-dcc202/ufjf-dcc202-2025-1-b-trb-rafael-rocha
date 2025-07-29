@@ -26,14 +26,41 @@
         table.canteiro td.preparado {
             background: #c25c09;
         }
+        table.canteiro td.cenoura {
+            background: #ff9800;
+        }
+        table.canteiro td.beterraba {
+            background: #a1005f;
+        }
+        table.canteiro td.batata {
+            background: #d9ff00;
+        }
         table.canteiro td:hover {
             outline: 2px solid #2196f3;
             cursor: pointer;
+        }
+        #sementes {
+            text-align: center;
+            margin-bottom: 16px;
+        }
+        #sementes button {
+            margin: 0 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        #sementes button:hover {
+            outline: 2px solid #c25c09;
         }
     </style>
 </head>
 <body>
     <h1>ICEDew Valley</h1>
+    <div id="sementes">
+        <button data-semente="cenoura">Cenoura</button>
+        <button data-semente="beterraba">Beterraba</button>
+        <button data-semente="batata">Batata</button>
+    </div>
     <table class="canteiro">
         <tbody>
         </tbody>
@@ -57,6 +84,8 @@
                         celula.className = '';
                     } else if (celula.className === '') {
                         celula.className = 'preparado';
+                    } else if (celula.className === 'preparado' && sementeSelecionada) {
+                        celula.className = sementeSelecionada;
                     }
                 });
                 linha.appendChild(celula);
@@ -65,6 +94,15 @@
             tabela.appendChild(linha);
             linhaAtual++;
         }
+        let sementeSelecionada = null;
+        const botoes = document.querySelectorAll('#sementes button');
+        botoes.forEach(botao => {
+            botao.addEventListener('click', function() {
+                sementeSelecionada = botao.getAttribute('data-semente');
+                botoes.forEach(b => b.style.outline = '');
+                botao.style.outline = '2px solid #c25c09';
+            });
+        });
     </script>
 </body>
 </html>
