@@ -1,4 +1,3 @@
-
 // Lógica de crescimento, fases, timer e sprites das plantas
 
 const estadoPlantas = {};
@@ -45,7 +44,7 @@ function adicionarSpritePlantaCelula(celula, tipo) {
     const cellWidth = td.offsetWidth;
     const cellHeight = td.offsetHeight;
     spriteDiv.style.left = (coluna * cellWidth + (cellWidth - 24) / 2) + 'px';
-    spriteDiv.style.top = (linha * cellHeight + (cellHeight + 10) / 2) + 'px';
+    spriteDiv.style.top = (linha * cellHeight + (cellHeight + 16) / 2) + 'px';
     spriteDiv.style.pointerEvents = 'none';
     spriteDiv.dataset.linha = linha;
     spriteDiv.dataset.coluna = coluna;
@@ -74,7 +73,7 @@ function atualizarSpriteFase(key, planta) {
     const cellHeight = celula.offsetHeight;
     spriteDiv.style.position = 'absolute';
     spriteDiv.style.left = (coluna * cellWidth + (cellWidth - 24) / 2) + 'px';
-    spriteDiv.style.top = (linha * cellHeight + (cellHeight - 24) / 2) + 'px';
+    spriteDiv.style.top = (linha * cellHeight + (cellHeight + 16) / 2) + 'px';
     spriteDiv.style.pointerEvents = 'none';
     spriteDiv.dataset.linha = linha;
     spriteDiv.dataset.coluna = coluna;

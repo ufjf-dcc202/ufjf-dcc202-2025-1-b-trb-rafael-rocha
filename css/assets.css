@@ -1,3 +1,20 @@
+/* Fases de crescimento das plantas */
+.planta-cenoura-fase1 { width:24px; height:24px; background-image:url('../assets/plants_free.png'); background-position: 0px -24px; background-size:120px 144px; position:absolute; left:0; top:0; }
+.planta-cenoura-fase2 { width:24px; height:24px; background-image:url('../assets/plants_free.png'); background-position: -24px -24px; background-size:120px 144px; position:absolute; left:0; top:0; }
+.planta-cenoura-fase3 { width:24px; height:24px; background-image:url('../assets/plants_free.png'); background-position: -48px -24px; background-size:120px 144px; position:absolute; left:0; top:0; }
+.planta-cenoura-fase4 { width:24px; height:24px; background-image:url('../assets/plants_free.png'); background-position: -72px -24px; background-size:120px 144px; position:absolute; left:0; top:0; }
+.planta-cenoura-fase5 { width:24px; height:24px; background-image:url('../assets/plants_free.png'); background-position: -96px -24px; background-size:120px 144px; position:absolute; left:0; top:0; }
+.planta-batata-fase1 { width:24px; height:24px; background-image:url('../assets/plants_free.png'); background-position: 0px -48px; background-size:120px 144px; position:absolute; left:0; top:0; }
+.planta-batata-fase2 { width:24px; height:24px; background-image:url('../assets/plants_free.png'); background-position: -24px -48px; background-size:120px 144px; position:absolute; left:0; top:0; }
+.planta-batata-fase3 { width:24px; height:24px; background-image:url('../assets/plants_free.png'); background-position: -48px -48px; background-size:120px 144px; position:absolute; left:0; top:0; }
+.planta-batata-fase4 { width:24px; height:24px; background-image:url('../assets/plants_free.png'); background-position: -72px -48px; background-size:120px 144px; position:absolute; left:0; top:0; }
+.planta-batata-fase5 { width:24px; height:24px; background-image:url('../assets/plants_free.png'); background-position: -96px -48px; background-size:120px 144px; position:absolute; left:0; top:0; }
+.planta-tomate-fase1 { width:24px; height:24px; background-image:url('../assets/plants_free.png'); background-position: 0px -72px; background-size:120px 144px; position:absolute; left:0; top:0; }
+.planta-tomate-fase2 { width:24px; height:24px; background-image:url('../assets/plants_free.png'); background-position: -24px -72px; background-size:120px 144px; position:absolute; left:0; top:0; }
+.planta-tomate-fase3 { width:24px; height:24px; background-image:url('../assets/plants_free.png'); background-position: -48px -72px; background-size:120px 144px; position:absolute; left:0; top:0; }
+.planta-tomate-fase4 { width:24px; height:24px; background-image:url('../assets/plants_free.png'); background-position: -72px -72px; background-size:120px 144px; position:absolute; left:0; top:0; }
+.planta-tomate-fase5 { width:24px; height:24px; background-image:url('../assets/plants_free.png'); background-position: -96px -72px; background-size:120px 144px; position:absolute; left:0; top:0; }
+
 .plantas-canteiro {
     position: absolute;
     top: 0;
@@ -8,39 +25,7 @@
     z-index: 20;
 }
 
-/* Sprites de plantas plantadas (fase 1) */
-.planta-cenoura-fase1 {
-    width: 24px;
-    height: 24px;
-    background-image: url('../assets/plants_free.png');
-    background-position: 0px -24px;
-    background-size: 120px 144px;
-    position: absolute;
-    left: 0;
-    top: 0;
-}
 
-.planta-batata-fase1 {
-    width: 24px;
-    height: 24px;
-    background-image: url('../assets/plants_free.png');
-    background-position: 0px -48px;
-    background-size: 120px 144px;
-    position: absolute;
-    left: 0;
-    top: 0;
-}
-
-.planta-tomate-fase1 {
-    width: 24px;
-    height: 24px;
-    background-image: url('../assets/plants_free.png');
-    background-position: 0px -72px;
-    background-size: 120px 144px;
-    position: absolute;
-    left: 0;
-    top: 0;
-}
 /* Sprites de sementes para botões */
 .semente-sprite {
     display: inline-block;
