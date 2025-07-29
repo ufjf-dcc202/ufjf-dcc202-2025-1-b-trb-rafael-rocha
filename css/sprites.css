@@ -111,3 +111,34 @@
     50%  { background-position-x: 100%; }
     100% { background-position-x: 0%; }
 }
+
+/* Movimento dos animais animados */
+.chicken-sprite.move {
+    animation: walk-chicken 10s linear infinite;
+}
+.cow-sprite.move {
+    animation: walk-cow 6s linear infinite;
+}
+.pig-sprite.move {
+    animation: walk-pig 5s linear infinite;
+}
+.sheep-sprite.move {
+    animation: walk-sheep 20s linear infinite;
+}
+
+@keyframes walk-chicken {
+    0% { left: 25vw; }
+    100% { left: 60vw; }
+}
+@keyframes walk-cow {
+    0% { left: 50vw; }
+    100% { left: 80vw; }
+}
+@keyframes walk-pig {
+    0% { left: 35vw; }
+    100% { left: 70vw; }
+}
+@keyframes walk-sheep {
+    0% { left: 65vw; }
+    100% { left: 30vw; }
+}
