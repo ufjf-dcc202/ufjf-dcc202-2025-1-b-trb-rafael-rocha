@@ -5,10 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ICEDew Valley</title>
     <style>
+        table.canteiro {
+            border-collapse: collapse;
+            margin: 20px auto;
+        }
+        table.canteiro td {
+            width: 32px;
+            height: 32px;
+            background: #e0cda9;
+            border: 1px solid #bfa76f;
+            box-sizing: border-box;
+            padding: 0;
+        }
     </style>
 </head>
 <body>
+    <h1>ICEDew Valley</h1>
+    <table class="canteiro">
+        <tbody>
+        </tbody>
+    </table>
     <script>
+        const tabela = document.querySelector('table.canteiro tbody');
+        let linhaAtual = 0;
+        while (linhaAtual < 12) {
+            let linha = document.createElement('tr');
+            let colunaAtual = 0;
+            while (colunaAtual < 12) {
+                let celula = document.createElement('td');
+                linha.appendChild(celula);
+                colunaAtual++;
+            }
+            tabela.appendChild(linha);
+            linhaAtual++;
+        }
     </script>
 </body>
 </html>
