@@ -58,14 +58,12 @@ body {
     width: 70px;
 }
 
-/* CASA */
 .casa {
     left: 75vw;
     top: 20vh;
     width: 110px;
 }
 
-/* CERCA */
 .cerca {
     left: 50%;
     bottom: 0;
@@ -75,63 +73,54 @@ body {
     object-fit: contain;
 }
 
-/* PONTE */
 .ponte {
     left: 60vw;
     top: 82vh;
     width: 80px;
 }
 
-/* BAÚ */
 .chest {
     left: 80vw;
     top: 60vh;
     width: 40px;
 }
 
-/* SOLO LIVRE */
 .farmland {
     left: 40vw;
     top: 70vh;
     width: 60px;
 }
 
-/* MINERAIS */
 .minerals {
     left: 10vw;
     top: 80vh;
     width: 50px;
 }
 
-/* DECORAÇÃO EXTERNA */
 .outdoor-decoration {
     left: 60vw;
     top: 10vh;
     width: 50px;
 }
 
-/* SLIME */
 .slime {
     left: 30vw;
     top: 80vh;
     width: 40px;
 }
 
-/* ITENS */
 .items {
     left: 85vw;
     top: 40vh;
     width: 40px;
 }
 
-/* PLANTAS */
 .plants {
     left: 55vw;
     top: 60vh;
     width: 50px;
 }
 
-/* LAMPIÃO */
 .street-lamp {
     left: 70vw;
     top: 80vh;
@@ -158,110 +147,4 @@ body {
     left: 65vw;
     top: 75vh;
     width: 45px;
-}
-
-/* VELAS */
-.candle-off {
-    left: 90vw;
-    top: 10vh;
-    width: 20px;
-}
-.candle-on {
-    left: 92vw;
-    top: 12vh;
-    width: 20px;
-}
-
-@keyframes candle-blink {
-    0%, 49% {
-        opacity: 1;
-    }
-    50%, 100% {
-        opacity: 0;
-    }
-}
-.candle-on {
-    animation: candle-blink 1s steps(1) infinite;
-}
-.candle-off {
-    animation: candle-blink 1s steps(1) infinite reverse;
-}
-.vela-animada {
-    position: absolute;
-    left: 91vw;
-    top: 11vh;
-    width: 24px;
-    height: 32px;
-    z-index: 2;
-    display: block;
-}
-.vela-animada img {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-}
-.candle-off, .candle-on {
-    left: 0 !important;
-    top: 0 !important;
-    width: 100% !important;
-    height: 100% !important;
-}
-.candle-fire {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url('../assets/White Candle/on.png');
-    background-size: 200% 100%;
-    background-position: 0 0;
-    animation: candle-fire-anim 0.5s steps(1) infinite;
-    pointer-events: none;
-}
-@keyframes candle-fire-anim {
-    0% { background-position: 0 0; }
-    50% { background-position: -100% 0; }
-    100% { background-position: 0 0; }
-}
-
-/* ANIMAIS ANIMADOS */
-.animal-sprite {
-    position: absolute;
-    display: block;
-    width: 45px;
-    height: 45px;
-    z-index: 2;
-}
-.chicken-sprite { left: 25vw; top: 75vh; width: 35px; height: 35px; }
-.cow-sprite { left: 50vw; top: 85vh; width: 60px; height: 45px; }
-.pig-sprite { left: 35vw; top: 65vh; width: 40px; height: 35px; }
-.sheep-sprite { left: 65vw; top: 75vh; width: 45px; height: 40px; }
-
-.chicken-frame, .cow-frame, .pig-frame, .sheep-frame {
-    width: 100%;
-    height: 100%;
-    background-repeat: no-repeat;
-    background-size: 200% 100%;
-    background-position: 0 0;
-    animation: animal-sprite-anim 0.5s steps(1) infinite;
-}
-.chicken-frame {
-    background-image: url('../assets/Animals/chicken.png');
-}
-.cow-frame {
-    background-image: url('../assets/Animals/cow.png');
-}
-.pig-frame {
-    background-image: url('../assets/Animals/pig.png');
-}
-.sheep-frame {
-    background-image: url('../assets/Animals/sheep.png');
-}
-@keyframes animal-sprite-anim {
-    0% { background-position: 0 0; }
-    50% { background-position: -100% 0; }
-    100% { background-position: 0 0; }
 }
