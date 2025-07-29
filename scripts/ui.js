@@ -1,3 +1,9 @@
+const precosVenda = {
+    cenoura: 8,
+    tomate: 12,
+    batata: 17 
+};
+
 window.atualizarUI = function() {
     const timerTexto = document.getElementById('timer-texto');
     const dinheiroTexto = document.getElementById('dinheiro-texto');
@@ -31,11 +37,13 @@ function aoClicarCelula(celula) {
     const coluna = Array.from(tr.children).indexOf(celula);
     const key = linha + '-' + coluna;
     if (window.estadoPlantas[key] && window.estadoPlantas[key].fase === window.FASES_POR_PLANTA) {
+        const tipo = window.estadoPlantas[key].tipo;
+        const valorVenda = precosVenda[tipo];
         window.removerSpritePlantaCelula(celula);
         window.limparEstadoPlantaCelula(celula);
         celula.className = '';
         celula.innerHTML = '';
-        if (window.dinheiroJogador !== undefined) window.dinheiroJogador += 10;
+        if (window.dinheiroJogador !== undefined) window.dinheiroJogador += valorVenda;
         if (window.atualizarUI) window.atualizarUI();
         return;
     }
