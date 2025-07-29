@@ -1,4 +1,4 @@
-window.dinheiroJogador = 0;
+window.dinheiroJogador = 7;
 
 const estadoPlantas = {};
 const FASES_POR_PLANTA = 5;

@@ -58,10 +58,14 @@ function aoClicarCelula(celula) {
         celula.className = 'preparado';
         celula.innerHTML = '';
     } else if (celula.className === 'preparado' && sementeSelecionada) {
-        celula.className = sementeSelecionada;
-        celula.innerHTML = '';
-        window.adicionarSpritePlantaCelula(celula, sementeSelecionada);
-        window.estadoPlantas[key] = { tipo: sementeSelecionada, fase: 1, regado: false, ticks: 0 };
+        if (window.dinheiroJogador !== undefined && window.dinheiroJogador >= 7) {
+            window.dinheiroJogador -= 7;
+            if (window.atualizarUI) window.atualizarUI();
+            celula.className = sementeSelecionada;
+            celula.innerHTML = '';
+            window.adicionarSpritePlantaCelula(celula, sementeSelecionada);
+            window.estadoPlantas[key] = { tipo: sementeSelecionada, fase: 1, regado: false, ticks: 0 };
+        }
     }
 }
 
