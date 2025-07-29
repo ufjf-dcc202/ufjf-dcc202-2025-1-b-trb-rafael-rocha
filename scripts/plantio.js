@@ -2,7 +2,7 @@ window.dinheiroJogador = 0;
 
 const estadoPlantas = {};
 const FASES_POR_PLANTA = 5;
-const TEMPO_PARA_AVANCAR = 3;
+const TEMPO_PARA_AVANCAR = 1;
 const INTERVALO_TICK = 1000;
 window.tickAtual = 0;
 

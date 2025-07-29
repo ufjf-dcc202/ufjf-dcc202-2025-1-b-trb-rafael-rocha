@@ -54,19 +54,19 @@ table.canteiro td.preparado {
 }
 
 table.canteiro td.cenoura {
-    background: #ff9800;
+    background: #ffca7b;
 }
 
-table.canteiro td.beterraba {
-    background: #a1005f;
+table.canteiro td.tomate {
+    background: #fca398;
 }
 
 table.canteiro td.batata {
-    background: #d9ff00;
+    background: #efff97;
 }
 
 table.canteiro td.cenoura.regado,
-table.canteiro td.beterraba.regado,
+table.canteiro td.tomate.regado,
 table.canteiro td.batata.regado,
 table.canteiro td.preparado.regado {
     filter: brightness(0.7);

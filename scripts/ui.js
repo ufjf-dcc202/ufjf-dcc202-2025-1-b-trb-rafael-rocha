@@ -26,13 +26,21 @@ function criarCelula() {
 }
 
 function aoClicarCelula(celula) {
+    const tr = celula.parentElement;
+    const linha = Array.from(tr.parentElement.children).indexOf(tr);
+    const coluna = Array.from(tr.children).indexOf(celula);
+    const key = linha + '-' + coluna;
+    if (window.estadoPlantas[key] && window.estadoPlantas[key].fase === window.FASES_POR_PLANTA) {
+        window.removerSpritePlantaCelula(celula);
+        window.limparEstadoPlantaCelula(celula);
+        celula.className = '';
+        celula.innerHTML = '';
+        if (window.dinheiroJogador !== undefined) window.dinheiroJogador += 10;
+        if (window.atualizarUI) window.atualizarUI();
+        return;
+    }
     if (modoRegar && (celula.className === 'cenoura' || celula.className === 'tomate' || celula.className === 'batata')) {
         celula.classList.add('regado');
-        // Marca como regado no estado
-        const tr = celula.parentElement;
-        const linha = Array.from(tr.parentElement.children).indexOf(tr);
-        const coluna = Array.from(tr.children).indexOf(celula);
-        const key = linha + '-' + coluna;
         if (window.estadoPlantas[key]) {
             window.estadoPlantas[key].regado = true;
         }
@@ -53,11 +61,6 @@ function aoClicarCelula(celula) {
         celula.className = sementeSelecionada;
         celula.innerHTML = '';
         window.adicionarSpritePlantaCelula(celula, sementeSelecionada);
-        // Salva estado inicial da planta
-        const tr = celula.parentElement;
-        const linha = Array.from(tr.parentElement.children).indexOf(tr);
-        const coluna = Array.from(tr.children).indexOf(celula);
-        const key = linha + '-' + coluna;
         window.estadoPlantas[key] = { tipo: sementeSelecionada, fase: 1, regado: false, ticks: 0 };
     }
 }
