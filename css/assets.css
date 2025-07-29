@@ -1,3 +1,46 @@
+.plantas-canteiro {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 20;
+}
+
+/* Sprites de plantas plantadas (fase 1) */
+.planta-cenoura-fase1 {
+    width: 24px;
+    height: 24px;
+    background-image: url('../assets/plants_free.png');
+    background-position: 0px -24px;
+    background-size: 120px 144px;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.planta-batata-fase1 {
+    width: 24px;
+    height: 24px;
+    background-image: url('../assets/plants_free.png');
+    background-position: 0px -48px;
+    background-size: 120px 144px;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.planta-tomate-fase1 {
+    width: 24px;
+    height: 24px;
+    background-image: url('../assets/plants_free.png');
+    background-position: 0px -72px;
+    background-size: 120px 144px;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
 /* Sprites de sementes para botões */
 .semente-sprite {
     display: inline-block;
@@ -54,6 +97,9 @@ body {
 
 #canteiro-wrapper {
     margin-top: 16px;
+    position: relative;
+    width: fit-content;
+    height: fit-content;
 }
 
 #ambiente img {
