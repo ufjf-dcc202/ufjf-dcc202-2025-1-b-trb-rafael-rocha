@@ -23,6 +23,10 @@
         table.canteiro td.erva {
             background: #4caf50;
         }
+        table.canteiro td:hover {
+            outline: 2px solid #2196f3;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -45,6 +49,11 @@
                 } else if (sorteio < 0.18) {
                     celula.className = 'erva';
                 }
+                celula.addEventListener('click', function() {
+                    if (celula.className === 'pedra' || celula.className === 'erva') {
+                        celula.className = '';
+                    }
+                });
                 linha.appendChild(celula);
                 colunaAtual++;
             }
