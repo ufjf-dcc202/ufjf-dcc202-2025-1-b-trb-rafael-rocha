@@ -103,8 +103,12 @@ table.canteiro td:hover {
 }
 
 #sementes {
-    text-align: center;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
     margin-bottom: 16px;
+    justify-content: center;
+    align-items: center;
 }
 
 #sementes button {

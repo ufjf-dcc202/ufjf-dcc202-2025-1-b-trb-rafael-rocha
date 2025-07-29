@@ -57,9 +57,15 @@ function aoClicarCelula(celula) {
         window.limparEstadoPlantaCelula(celula);
         celula.className = 'preparado';
         celula.innerHTML = '';
-    } else if (celula.className === 'preparado' && sementeSelecionada) {
-        if (window.dinheiroJogador !== undefined && window.dinheiroJogador >= 7) {
-            window.dinheiroJogador -= 7;
+    }
+    if (celula.className === 'preparado' && sementeSelecionada) {
+        let preco = 7;
+        const botao = Array.from(botoesSementes).find(b => b.getAttribute('data-semente') === sementeSelecionada);
+        if (botao && botao.hasAttribute('data-preco')) {
+            preco = parseInt(botao.getAttribute('data-preco'));
+        }
+        if (window.dinheiroJogador !== undefined && window.dinheiroJogador >= preco) {
+            window.dinheiroJogador -= preco;
             if (window.atualizarUI) window.atualizarUI();
             celula.className = sementeSelecionada;
             celula.innerHTML = '';
