@@ -1,3 +1,31 @@
+:root {
+    --fonte-ui: monospace;
+    --cor-fundo-ui: rgba(255,255,255,0.8);
+    --cor-borda-ui: none;
+    --cor-borda-hover: #c25c09;
+    --raio-ui: 8px;
+    --sombra-ui: 0 2px 8px #0002;
+    --cor-botao: #fff;
+}
+#timer-jogo {
+    position: fixed;
+    top: 12px;
+    right: 24px;
+    z-index: 100;
+    font-family: var(--fonte-ui);
+    font-size: 1.2em;
+    background: var(--cor-fundo-ui);
+    padding: 6px 16px 2px 16px;
+    border-radius: var(--raio-ui);
+    box-shadow: var(--sombra-ui);
+}
+
+#dinheiro-texto {
+    font-family: var(--fonte-ui);
+    margin-top: 4px;
+    font-size: 1.1em;
+}
+
 table.canteiro {
     border-collapse: collapse;
     margin: 20px auto;
@@ -62,10 +90,16 @@ table.canteiro td:hover {
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
+    font-family: var(--fonte-ui);
+    border-radius: var(--raio-ui);
+    box-shadow: var(--sombra-ui);
+    border: var(--cor-borda-ui);
+    background: var(--cor-botao);
+    transition: box-shadow 0.2s, outline 0.2s;
 }
 
 #acoes button:hover {
-    outline: 2px solid #c25c09;
+    outline: 2px solid var(--cor-borda-hover);
 }
 
 #sementes {
@@ -78,8 +112,14 @@ table.canteiro td:hover {
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
+    font-family: var(--fonte-ui);
+    border-radius: var(--raio-ui);
+    box-shadow: var(--sombra-ui);
+    border: var(--cor-borda-ui);
+    background: var(--cor-botao);
+    transition: box-shadow 0.2s, outline 0.2s;
 }
 
 #sementes button:hover {
-    outline: 2px solid #c25c09;
+    outline: 2px solid var(--cor-borda-hover);
 }

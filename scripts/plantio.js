@@ -1,19 +1,16 @@
-// Lógica de crescimento, fases, timer e sprites das plantas
+window.dinheiroJogador = 0;
 
 const estadoPlantas = {};
 const FASES_POR_PLANTA = 5;
 const TEMPO_PARA_AVANCAR = 3;
 const INTERVALO_TICK = 1000;
-let tickAtual = 0;
+window.tickAtual = 0;
 
 const plantasCanteiro = document.querySelector('.plantas-canteiro');
 const tabelaCanteiro = document.querySelector('table.canteiro');
 
-
-const timerDiv = document.getElementById('timer-jogo');
 setInterval(() => {
-    tickAtual++;
-    if (timerDiv) timerDiv.textContent = 'Tempo: ' + tickAtual;
+    window.tickAtual++;
     for (const key in estadoPlantas) {
         const planta = estadoPlantas[key];
         if (planta.fase < FASES_POR_PLANTA && planta.regado) {
@@ -27,6 +24,7 @@ setInterval(() => {
             }
         }
     }
+    if (window.atualizarUI) window.atualizarUI();
 }, INTERVALO_TICK);
 
 function adicionarSpritePlantaCelula(celula, tipo) {

@@ -1,4 +1,11 @@
-// Lógica de interface: criação da tabela, seleção de sementes, modo regar, eventos de clique
+window.atualizarUI = function() {
+    const timerTexto = document.getElementById('timer-texto');
+    const dinheiroTexto = document.getElementById('dinheiro-texto');
+    if (timerTexto && window.tickAtual !== undefined)
+        timerTexto.textContent = 'Tempo: ' + window.tickAtual;
+    if (dinheiroTexto && window.dinheiroJogador !== undefined)
+        dinheiroTexto.textContent = 'Dinheiro: R$ ' + window.dinheiroJogador;
+};
 
 const corpoTabela = document.querySelector('table.canteiro tbody');
 const botoesSementes = document.querySelectorAll('#sementes button');
