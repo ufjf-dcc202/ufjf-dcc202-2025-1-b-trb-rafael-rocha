@@ -53,6 +53,15 @@
 .pig-sprite { left: 35vw; top: 65vh; width: 40px; height: 35px; }
 .sheep-sprite { left: 65vw; top: 75vh; width: 45px; height: 40px; }
 
+.chicken-sprite.idle { left: 20vw; top: 75vh; }
+.chicken-sprite.move { left: 25vw; top: 75vh; }
+.cow-sprite.idle { left: 45vw; top: 85vh; }
+.cow-sprite.move { left: 50vw; top: 85vh; }
+.pig-sprite.idle { left: 30vw; top: 65vh; }
+.pig-sprite.move { left: 35vw; top: 65vh; }
+.sheep-sprite.idle { left: 60vw; top: 75vh; }
+.sheep-sprite.move { left: 65vw; top: 75vh; }
+
 .chicken-frame, .cow-frame, .pig-frame, .sheep-frame {
     width: 100%;
     height: 100%;
@@ -79,4 +88,26 @@
     50%  { background-position:   0% 100%; }
     75%  { background-position: 100% 100%; }
     100% { background-position:   0%   0%; }
+}
+
+/* Idle: anima apenas a primeira linha (y = 0%) */
+.idle-frame {
+    background-position-y: 0% !important;
+    animation: animal-sprite-idle 2s steps(1) infinite;
+}
+@keyframes animal-sprite-idle {
+    0%   { background-position-x: 0%; }
+    50%  { background-position-x: 100%; }
+    100% { background-position-x: 0%; }
+}
+
+/* Movimento: anima apenas a segunda linha (y = 100%) */
+.move-frame {
+    background-position-y: 100% !important;
+    animation: animal-sprite-move 0.8s steps(1) infinite;
+}
+@keyframes animal-sprite-move {
+    0%   { background-position-x: 0%; }
+    50%  { background-position-x: 100%; }
+    100% { background-position-x: 0%; }
 }
