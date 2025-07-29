@@ -1,3 +1,5 @@
+// Quantidade máxima de ticks sem regar antes da planta morrer
+const TICKS_SEM_AGUA_MORRE = 3;
 window.dinheiroJogador = 7;
 
 const estadoPlantas = {};
@@ -13,14 +15,31 @@ setInterval(() => {
     window.tickAtual++;
     for (const key in estadoPlantas) {
         const planta = estadoPlantas[key];
-        if (planta.fase < FASES_POR_PLANTA && planta.regado) {
-            planta.ticks++;
-            if (planta.ticks >= TEMPO_PARA_AVANCAR) {
-                planta.fase++;
-                planta.ticks = 0;
-                atualizarSpriteFase(key, planta);
-                planta.regado = false;
-                atualizarRegadoCelula(key, false);
+        // Inicializa contador de ticks sem água se não existir
+        if (planta.ticksSemAgua === undefined) planta.ticksSemAgua = 0;
+        if (planta.fase < FASES_POR_PLANTA) {
+            if (planta.regado) {
+                planta.ticks++;
+                planta.ticksSemAgua = 0; // reset ao regar
+                if (planta.ticks >= TEMPO_PARA_AVANCAR) {
+                    planta.fase++;
+                    planta.ticks = 0;
+                    atualizarSpriteFase(key, planta);
+                    planta.regado = false;
+                    atualizarRegadoCelula(key, false);
+                }
+            } else {
+                planta.ticksSemAgua++;
+                if (planta.ticksSemAgua >= TICKS_SEM_AGUA_MORRE) {
+                    // Planta morre
+                    const [linha, coluna] = key.split('-').map(Number);
+                    const celula = tabelaCanteiro.rows[linha].cells[coluna];
+                    removerSpritePlantaCelula(celula);
+                    limparEstadoPlantaCelula(celula);
+                    celula.className = '';
+                    celula.innerHTML = '';
+                    continue;
+                }
             }
         }
     }
