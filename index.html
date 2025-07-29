@@ -17,6 +17,12 @@
             box-sizing: border-box;
             padding: 0;
         }
+        table.canteiro td.pedra {
+            background: #888;
+        }
+        table.canteiro td.erva {
+            background: #4caf50;
+        }
     </style>
 </head>
 <body>
@@ -33,6 +39,12 @@
             let colunaAtual = 0;
             while (colunaAtual < 12) {
                 let celula = document.createElement('td');
+                let sorteio = Math.random();
+                if (sorteio < 0.08) {
+                    celula.className = 'pedra';
+                } else if (sorteio < 0.18) {
+                    celula.className = 'erva';
+                }
                 linha.appendChild(celula);
                 colunaAtual++;
             }
