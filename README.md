@@ -1,1 +1,20 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/YHBcxhqH)
+# ICEDew Valley
+
+Trabalho prático de DCC202 - UFJF
+
+## Como rodar
+
+1. Baixe ou clone o repositório.
+2. Abra o arquivo `index.html` em seu navegador.
+
+## Créditos dos assets
+
+- Os assets utilizados neste projeto são de:
+  - [Tiny Wonder Farm Asset Pack](https://butterymilk.itch.io/tiny-wonder-farm-asset-pack) por butterymilk
+  - [Pixel Fantasy Chronicles RPG Asset Pack](https://kijosoft.itch.io/pixel-fantasy-chronicles-rpg-asset-pack) por Kijo
+
+Todos os direitos dos assets pertencem aos seus respectivos autores.
+
+## Licença
+
+Uso educacional, sem fins lucrativos.

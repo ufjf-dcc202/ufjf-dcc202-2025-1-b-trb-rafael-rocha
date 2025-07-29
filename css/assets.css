@@ -1,0 +1,46 @@
+#ambiente {
+    position: relative;
+    width: 700px;
+    height: 500px;
+    margin: 0 auto 24px auto;
+    background: #b3e6ff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px #0002;
+}
+#canteiro-wrapper {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+}
+#ambiente img {
+    position: absolute;
+    -webkit-user-select: none;
+    user-select: none;
+}
+.arvore-grande {
+    left: 40px;
+    top: 30px;
+}
+.arvore-media {
+    left: 300px;
+    top: 60px;
+}
+.arvore-pequena {
+    left: 200px;
+    top: 200px;
+}
+.casa {
+    left: 500px;
+    top: 100px;
+}
+.cerca {
+    left: 0px;
+    top: 350px;
+}
+.ponte {
+    left: 350px;
+    top: 400px;
+}
