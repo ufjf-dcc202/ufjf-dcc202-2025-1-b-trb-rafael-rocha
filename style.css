@@ -1,0 +1,86 @@
+
+table.canteiro {
+    border-collapse: collapse;
+    margin: 20px auto;
+}
+
+table.canteiro td {
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    box-sizing: border-box;
+    border: 1px solid #bfa76f;
+    background: #e0cda9;
+    transition: filter 0.2s, background 0.2s;
+}
+
+table.canteiro td.pedra {
+    background: #888;
+}
+
+table.canteiro td.erva {
+    background: #4caf50;
+}
+
+table.canteiro td.preparado {
+    background: #c25c09;
+}
+
+table.canteiro td.cenoura {
+    background: #ff9800;
+}
+
+table.canteiro td.beterraba {
+    background: #a1005f;
+}
+
+table.canteiro td.batata {
+    background: #d9ff00;
+}
+
+table.canteiro td.cenoura.regado,
+table.canteiro td.beterraba.regado,
+table.canteiro td.batata.regado,
+table.canteiro td.preparado.regado {
+    filter: brightness(0.7);
+}
+
+table.canteiro td.regado {
+    box-shadow: 0 0 0 3px #2196f3 inset;
+}
+
+table.canteiro td:hover {
+    outline: 2px solid #2196f3;
+    cursor: pointer;
+}
+
+#acoes {
+    text-align: center;
+    margin-bottom: 12px;
+}
+
+#acoes button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#acoes button:hover {
+    outline: 2px solid #c25c09;
+}
+
+#sementes {
+    text-align: center;
+    margin-bottom: 16px;
+}
+
+#sementes button {
+    margin: 0 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#sementes button:hover {
+    outline: 2px solid #c25c09;
+}

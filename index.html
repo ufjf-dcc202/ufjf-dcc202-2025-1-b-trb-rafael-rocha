@@ -4,70 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ICEDew Valley</title>
-    <style>
-        table.canteiro {
-            border-collapse: collapse;
-            margin: 20px auto;
-        }
-        table.canteiro td {
-            width: 32px;
-            height: 32px;
-            background: #e0cda9;
-            border: 1px solid #bfa76f;
-            box-sizing: border-box;
-            padding: 0;
-        }
-        table.canteiro td.pedra {
-            background: #888;
-        }
-        table.canteiro td.erva {
-            background: #4caf50;
-        }
-        table.canteiro td.preparado {
-            background: #c25c09;
-        }
-        table.canteiro td.cenoura {
-            background: #ff9800;
-        }
-        table.canteiro td.beterraba {
-            background: #a1005f;
-        }
-        table.canteiro td.batata {
-            background: #d9ff00;
-        }
-        table.canteiro td:hover {
-            outline: 2px solid #2196f3;
-            cursor: pointer;
-        }
-        table.canteiro td.regado {
-            box-shadow: 0 0 0 3px #2196f3 inset;
-        }
-        #acoes {
-            text-align: center;
-            margin-bottom: 12px;
-        }
-        #acoes button {
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-        #acoes button:hover {
-            outline: 2px solid #c25c09;
-        }
-        #sementes {
-            text-align: center;
-            margin-bottom: 16px;
-        }
-        #sementes button {
-            margin: 0 5px;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-        #sementes button:hover {
-            outline: 2px solid #c25c09;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <h1>ICEDew Valley</h1>
@@ -83,61 +20,6 @@
         <tbody>
         </tbody>
     </table>
-    <script>
-        const tabela = document.querySelector('table.canteiro tbody');
-        let linhaAtual = 0;
-        while (linhaAtual < 12) {
-            let linha = document.createElement('tr');
-            let colunaAtual = 0;
-            while (colunaAtual < 12) {
-                let celula = document.createElement('td');
-                let sorteio = Math.random();
-                if (sorteio < 0.08) {
-                    celula.className = 'pedra';
-                } else if (sorteio < 0.18) {
-                    celula.className = 'erva';
-                }
-                celula.addEventListener('click', function() {
-                    if (modoRegar && (celula.className === 'cenoura' || celula.className === 'beterraba' || celula.className === 'batata')) {
-                        celula.classList.add('regado');
-                        return;
-                    }
-                    if (celula.className === 'pedra' || celula.className === 'erva') {
-                        celula.className = '';
-                    } else if (celula.className === '') {
-                        celula.className = 'preparado';
-                    } else if (celula.className === 'preparado' && sementeSelecionada) {
-                        celula.className = sementeSelecionada;
-                    }
-                });
-                linha.appendChild(celula);
-                colunaAtual++;
-            }
-            tabela.appendChild(linha);
-            linhaAtual++;
-        }
-        let sementeSelecionada = null;
-        const botoes = document.querySelectorAll('#sementes button');
-        botoes.forEach(botao => {
-            botao.addEventListener('click', function() {
-                if (modoRegar) {
-                    modoRegar = false;
-                    document.getElementById('btn-regar').style.background = '';
-                }
-                sementeSelecionada = botao.getAttribute('data-semente');
-                botoes.forEach(b => b.style.outline = '');
-                botao.style.outline = '2px solid #c25c09';
-            });
-        });
-        let modoRegar = false;
-        document.getElementById('btn-regar').onclick = function() {
-            if (sementeSelecionada) {
-                sementeSelecionada = null;
-                botoes.forEach(b => b.style.outline = '');
-            }
-            modoRegar = !modoRegar;
-            this.style.background = modoRegar ? '#2196f3' : '';
-        };
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
