@@ -1,3 +1,24 @@
+/* Sprites de sementes para botões */
+.semente-sprite {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    vertical-align: middle;
+    margin-right: 6px;
+    background-size: 120px 72px;
+}
+.semente-batata {
+    background-image: url('../assets/items_free.png');
+    background-position: -24px -24px;
+}
+.semente-cenoura {
+    background-image: url('../assets/items_free.png');
+    background-position: -48px -24px;
+}
+.semente-tomate {
+    background-image: url('../assets/items_free.png');
+    background-position: -72px -24px;
+}
 html, body {
     height: 100%;
     margin: 0;
