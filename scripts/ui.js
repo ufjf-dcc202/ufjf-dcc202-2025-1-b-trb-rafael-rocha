@@ -1,8 +1,6 @@
-
+// Lógica de interface: criação da tabela, seleção de sementes, modo regar, eventos de clique
 
 const corpoTabela = document.querySelector('table.canteiro tbody');
-const plantasCanteiro = document.querySelector('.plantas-canteiro');
-const tabelaCanteiro = document.querySelector('table.canteiro');
 const botoesSementes = document.querySelectorAll('#sementes button');
 const botaoRegar = document.getElementById('btn-regar');
 let sementeSelecionada = null;
@@ -18,69 +16,43 @@ function criarCelula() {
     }
     celula.addEventListener('click', () => aoClicarCelula(celula));
     return celula;
+}
 
 function aoClicarCelula(celula) {
     if (modoRegar && (celula.className === 'cenoura' || celula.className === 'tomate' || celula.className === 'batata')) {
         celula.classList.add('regado');
+        // Marca como regado no estado
+        const tr = celula.parentElement;
+        const linha = Array.from(tr.parentElement.children).indexOf(tr);
+        const coluna = Array.from(tr.children).indexOf(celula);
+        const key = linha + '-' + coluna;
+        if (window.estadoPlantas[key]) {
+            window.estadoPlantas[key].regado = true;
+        }
         return;
     }
     // Remove sprite se limpar a célula
     if (celula.className === 'pedra' || celula.className === 'erva') {
-        removerSpritePlantaCelula(celula);
+        window.removerSpritePlantaCelula(celula);
+        window.limparEstadoPlantaCelula(celula);
         celula.className = '';
         celula.innerHTML = '';
     } else if (celula.className === '') {
-        removerSpritePlantaCelula(celula);
+        window.removerSpritePlantaCelula(celula);
+        window.limparEstadoPlantaCelula(celula);
         celula.className = 'preparado';
         celula.innerHTML = '';
     } else if (celula.className === 'preparado' && sementeSelecionada) {
         celula.className = sementeSelecionada;
         celula.innerHTML = '';
-        adicionarSpritePlantaCelula(celula, sementeSelecionada);
+        window.adicionarSpritePlantaCelula(celula, sementeSelecionada);
+        // Salva estado inicial da planta
+        const tr = celula.parentElement;
+        const linha = Array.from(tr.parentElement.children).indexOf(tr);
+        const coluna = Array.from(tr.children).indexOf(celula);
+        const key = linha + '-' + coluna;
+        window.estadoPlantas[key] = { tipo: sementeSelecionada, fase: 1, regado: false, ticks: 0 };
     }
-
-}
-
-function adicionarSpritePlantaCelula(celula, tipo) {
-    // Descobre a posição da célula na tabela
-    const tr = celula.parentElement;
-    const linha = Array.from(tr.parentElement.children).indexOf(tr);
-    const coluna = Array.from(tr.children).indexOf(celula);
-    // Remove sprite antiga se houver
-    removerSpritePlantaCelula(celula);
-    // Cria sprite
-    let spriteDiv = document.createElement('div');
-    if (tipo === 'cenoura') {
-        spriteDiv.className = 'planta-cenoura-fase1';
-    } else if (tipo === 'batata') {
-        spriteDiv.className = 'planta-batata-fase1';
-    } else if (tipo === 'tomate') {
-        spriteDiv.className = 'planta-tomate-fase1';
-    } else {
-        return;
-    }
-    spriteDiv.style.position = 'absolute';
-    // Usa o tamanho real da célula para posicionar
-    const td = tabelaCanteiro.rows[linha].cells[coluna];
-    const cellWidth = td.offsetWidth;
-    const cellHeight = td.offsetHeight;
-    spriteDiv.style.left = (coluna * cellWidth + (cellWidth - 24) / 2) + 'px';
-    spriteDiv.style.top = (linha * cellHeight + (cellHeight + 12) / 2) + 'px';
-    spriteDiv.style.pointerEvents = 'none';
-    // Marca para remoção futura
-    spriteDiv.dataset.linha = linha;
-    spriteDiv.dataset.coluna = coluna;
-    plantasCanteiro.appendChild(spriteDiv);
-}
-
-function removerSpritePlantaCelula(celula) {
-    const tr = celula.parentElement;
-    const linha = Array.from(tr.parentElement.children).indexOf(tr);
-    const coluna = Array.from(tr.children).indexOf(celula);
-    // Remove sprite correspondente
-    const sprite = plantasCanteiro.querySelector('[data-linha="' + linha + '"][data-coluna="' + coluna + '"]');
-    if (sprite) plantasCanteiro.removeChild(sprite);
-}
 }
 
 function criarTabela() {
