@@ -98,7 +98,7 @@
                     celula.className = 'erva';
                 }
                 celula.addEventListener('click', function() {
-                    if (modoRegar && (celula.className === 'preparado' || celula.className === 'cenoura' || celula.className === 'beterraba' || celula.className === 'batata')) {
+                    if (modoRegar && (celula.className === 'cenoura' || celula.className === 'beterraba' || celula.className === 'batata')) {
                         celula.classList.add('regado');
                         return;
                     }
@@ -120,6 +120,10 @@
         const botoes = document.querySelectorAll('#sementes button');
         botoes.forEach(botao => {
             botao.addEventListener('click', function() {
+                if (modoRegar) {
+                    modoRegar = false;
+                    document.getElementById('btn-regar').style.background = '';
+                }
                 sementeSelecionada = botao.getAttribute('data-semente');
                 botoes.forEach(b => b.style.outline = '');
                 botao.style.outline = '2px solid #c25c09';
@@ -127,6 +131,10 @@
         });
         let modoRegar = false;
         document.getElementById('btn-regar').onclick = function() {
+            if (sementeSelecionada) {
+                sementeSelecionada = null;
+                botoes.forEach(b => b.style.outline = '');
+            }
             modoRegar = !modoRegar;
             this.style.background = modoRegar ? '#2196f3' : '';
         };
