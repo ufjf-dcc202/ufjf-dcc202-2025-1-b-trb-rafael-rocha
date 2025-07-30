@@ -47,10 +47,13 @@ function aoClicarCelula(celula) {
         if (window.atualizarUI) window.atualizarUI();
         return;
     }
-    if (modoRegar && (celula.className === 'cenoura' || celula.className === 'tomate' || celula.className === 'batata')) {
-        celula.classList.add('regado');
-        if (window.estadoPlantas[key]) {
-            window.estadoPlantas[key].regado = true;
+    if (modoRegar && window.estadoPlantas[key]) {
+        const planta = window.estadoPlantas[key];
+        if (planta) {
+            planta.regado = true;
+            planta.ticksSemAgua = 0; // Reset the water counter
+            celula.classList.add('regado');
+            celula.classList.remove(CLASSE_AVISO_MORTE); // Remove the visual warning
         }
         return;
     }

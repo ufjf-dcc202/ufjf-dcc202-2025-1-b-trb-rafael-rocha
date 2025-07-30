@@ -1,4 +1,3 @@
-/* Fases de crescimento das plantas */
 .planta-cenoura-fase1 { width:24px; height:24px; background-image:url('../assets/plants_free.png'); background-position: 0px -24px; background-size:120px 144px; position:absolute; left:0; top:0; }
 .planta-cenoura-fase2 { width:24px; height:24px; background-image:url('../assets/plants_free.png'); background-position: -24px -24px; background-size:120px 144px; position:absolute; left:0; top:0; }
 .planta-cenoura-fase3 { width:24px; height:24px; background-image:url('../assets/plants_free.png'); background-position: -48px -24px; background-size:120px 144px; position:absolute; left:0; top:0; }
