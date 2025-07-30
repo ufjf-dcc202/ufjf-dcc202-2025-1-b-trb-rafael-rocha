@@ -199,3 +199,28 @@ body {
     top: 75vh;
     width: 45px;
 }
+
+.farm-tree-left {
+    left: 15vw;
+    top: 30vh;
+    width: 100px;
+}
+.farm-tree-right {
+    left: 90vw;
+    top: 30vh;
+    width: 100px;
+}
+.fence-top {
+    left: 50%;
+    top: 60vh;
+    width: 70vw;
+    transform: translateX(-50%);
+    object-fit: contain;
+}
+.fence-bottom {
+    left: 50%;
+    bottom: 5vh;
+    width: 90vw;
+    transform: translateX(-50%);
+    object-fit: contain;
+}
