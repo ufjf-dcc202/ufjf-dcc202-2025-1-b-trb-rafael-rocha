@@ -1,106 +1,77 @@
-const CLASSE_AVISO_MORTE = 'planta-perigo';
-const TICKS_SEM_AGUA_MORRE = 10;
-window.dinheiroJogador = 7;
+const CONFIG = {
+    CLASSE_AVISO_MORTE: 'planta-perigo',
+    TICKS_SEM_AGUA_MORRE: 10,
+    FASES_POR_PLANTA: 5,
+    TEMPO_PARA_AVANCAR: 1,
+    INTERVALO_TICK: 1000,
+};
 
-const estadoPlantas = {};
-const FASES_POR_PLANTA = 5;
-const TEMPO_PARA_AVANCAR = 1;
-const INTERVALO_TICK = 1000;
+window.dinheiroJogador = 7;
 window.tickAtual = 0;
 
+const estadoPlantas = {};
 const plantasCanteiro = document.querySelector('.plantas-canteiro');
 const tabelaCanteiro = document.querySelector('table.canteiro');
 
-setInterval(() => {
-    window.tickAtual++;
-    for (const key in estadoPlantas) {
-        const planta = estadoPlantas[key];
-        if (planta.ticksSemAgua === undefined) planta.ticksSemAgua = 0;
-        if (planta.fase < FASES_POR_PLANTA) {
-            const [linha, coluna] = key.split('-').map(Number);
-            const celula = tabelaCanteiro.rows[linha].cells[coluna];
-            if (planta.regado) {
-                planta.ticks++;
-                planta.ticksSemAgua = 0;
-                celula.classList.remove(CLASSE_AVISO_MORTE);
-                if (planta.ticks >= TEMPO_PARA_AVANCAR) {
-                    planta.fase++;
-                    planta.ticks = 0;
-                    atualizarSpriteFase(key, planta);
-                    planta.regado = false;
-                    atualizarRegadoCelula(key, false);
-                }
-            } else {
-                planta.ticksSemAgua++;
-                // Adiciona aviso visual 5 tick antes de morrer
-                if (planta.ticksSemAgua === TICKS_SEM_AGUA_MORRE - 3) {
-                    celula.classList.add(CLASSE_AVISO_MORTE);
-                }
-                if (planta.ticksSemAgua < TICKS_SEM_AGUA_MORRE - 3) {
-                    celula.classList.remove(CLASSE_AVISO_MORTE);
-                }
-                if (planta.ticksSemAgua >= TICKS_SEM_AGUA_MORRE) {
-                    celula.classList.remove(CLASSE_AVISO_MORTE);
-                    removerSpritePlantaCelula(celula);
-                    limparEstadoPlantaCelula(celula);
-                    celula.className = '';
-                    celula.innerHTML = '';
-                    continue;
-                }
-            }
-        }
-    }
-    if (window.atualizarUI) window.atualizarUI();
-}, INTERVALO_TICK);
-
-function adicionarSpritePlantaCelula(celula, tipo) {
+function obterLinhaColuna(celula) {
     const tr = celula.parentElement;
     const linha = Array.from(tr.parentElement.children).indexOf(tr);
     const coluna = Array.from(tr.children).indexOf(celula);
-    removerSpritePlantaCelula(celula);
-    let spriteDiv = document.createElement('div');
-    if (tipo === 'cenoura') spriteDiv.className = 'planta-cenoura-fase1';
-    else if (tipo === 'batata') spriteDiv.className = 'planta-batata-fase1';
-    else if (tipo === 'tomate') spriteDiv.className = 'planta-tomate-fase1';
-    else return;
+    return { linha, coluna };
+}
+
+function criarSpriteDiv(classe, linha, coluna, cellWidth, cellHeight) {
+    const spriteDiv = document.createElement('div');
+    spriteDiv.className = classe;
     spriteDiv.style.position = 'absolute';
-    const td = tabelaCanteiro.rows[linha].cells[coluna];
-    const cellWidth = td.offsetWidth;
-    const cellHeight = td.offsetHeight;
-    spriteDiv.style.left = (coluna * cellWidth + (cellWidth - 24) / 2) + 'px';
-    spriteDiv.style.top = (linha * cellHeight + (cellHeight + 16) / 2) + 'px';
+    spriteDiv.style.left = `${coluna * cellWidth + (cellWidth - 24) / 2}px`;
+    spriteDiv.style.top = `${linha * cellHeight + (cellHeight + 16) / 2}px`;
     spriteDiv.style.pointerEvents = 'none';
     spriteDiv.dataset.linha = linha;
     spriteDiv.dataset.coluna = coluna;
-    plantasCanteiro.appendChild(spriteDiv);
+    return spriteDiv;
 }
 
 function removerSpritePlantaCelula(celula) {
-    const tr = celula.parentElement;
-    const linha = Array.from(tr.parentElement.children).indexOf(tr);
-    const coluna = Array.from(tr.children).indexOf(celula);
+    const { linha, coluna } = obterLinhaColuna(celula);
     const sprite = plantasCanteiro.querySelector(`[data-linha="${linha}"][data-coluna="${coluna}"]`);
     if (sprite) plantasCanteiro.removeChild(sprite);
+}
+
+function adicionarSpritePlantaCelula(celula, tipo) {
+    const { linha, coluna } = obterLinhaColuna(celula);
+    removerSpritePlantaCelula(celula);
+
+    const tipoParaClasse = {
+        cenoura: 'planta-cenoura-fase1',
+        batata: 'planta-batata-fase1',
+        tomate: 'planta-tomate-fase1',
+    };
+
+    const classe = tipoParaClasse[tipo];
+    if (!classe) return;
+
+    const cellWidth = celula.offsetWidth;
+    const cellHeight = celula.offsetHeight;
+    const spriteDiv = criarSpriteDiv(classe, linha, coluna, cellWidth, cellHeight);
+    plantasCanteiro.appendChild(spriteDiv);
 }
 
 function atualizarSpriteFase(key, planta) {
     const [linha, coluna] = key.split('-').map(Number);
     const celula = tabelaCanteiro.rows[linha].cells[coluna];
     removerSpritePlantaCelula(celula);
-    let spriteDiv = document.createElement('div');
-    let classe = '';
-    if (planta.tipo === 'cenoura') classe = 'planta-cenoura-fase' + planta.fase;
-    if (planta.tipo === 'batata') classe = 'planta-batata-fase' + planta.fase;
-    if (planta.tipo === 'tomate') classe = 'planta-tomate-fase' + planta.fase;
-    spriteDiv.className = classe;
+
+    const tipoParaClasse = {
+        cenoura: 'planta-cenoura-fase',
+        batata: 'planta-batata-fase',
+        tomate: 'planta-tomate-fase',
+    };
+
+    const classe = tipoParaClasse[planta.tipo] + planta.fase;
     const cellWidth = celula.offsetWidth;
     const cellHeight = celula.offsetHeight;
-    spriteDiv.style.position = 'absolute';
-    spriteDiv.style.left = (coluna * cellWidth + (cellWidth - 24) / 2) + 'px';
-    spriteDiv.style.top = (linha * cellHeight + (cellHeight + 16) / 2) + 'px';
-    spriteDiv.style.pointerEvents = 'none';
-    spriteDiv.dataset.linha = linha;
-    spriteDiv.dataset.coluna = coluna;
+    const spriteDiv = criarSpriteDiv(classe, linha, coluna, cellWidth, cellHeight);
     plantasCanteiro.appendChild(spriteDiv);
 }
 
@@ -112,15 +83,54 @@ function atualizarRegadoCelula(key, regado) {
 }
 
 function limparEstadoPlantaCelula(celula) {
-    const tr = celula.parentElement;
-    const linha = Array.from(tr.parentElement.children).indexOf(tr);
-    const coluna = Array.from(tr.children).indexOf(celula);
-    const key = linha + '-' + coluna;
+    const { linha, coluna } = obterLinhaColuna(celula);
+    const key = `${linha}-${coluna}`;
     delete estadoPlantas[key];
 }
 
+setInterval(() => {
+    window.tickAtual++;
+    for (const key in estadoPlantas) {
+        const planta = estadoPlantas[key];
+        if (planta.ticksSemAgua === undefined) planta.ticksSemAgua = 0;
+        if (planta.fase < CONFIG.FASES_POR_PLANTA) {
+            const [linha, coluna] = key.split('-').map(Number);
+            const celula = tabelaCanteiro.rows[linha].cells[coluna];
+            if (planta.regado) {
+                planta.ticks++;
+                planta.ticksSemAgua = 0;
+                celula.classList.remove(CONFIG.CLASSE_AVISO_MORTE);
+                if (planta.ticks >= CONFIG.TEMPO_PARA_AVANCAR) {
+                    planta.fase++;
+                    planta.ticks = 0;
+                    atualizarSpriteFase(key, planta);
+                    planta.regado = false;
+                    atualizarRegadoCelula(key, false);
+                }
+            } else {
+                planta.ticksSemAgua++;
+                if (planta.ticksSemAgua === CONFIG.TICKS_SEM_AGUA_MORRE - 3) {
+                    celula.classList.add(CONFIG.CLASSE_AVISO_MORTE);
+                }
+                if (planta.ticksSemAgua < CONFIG.TICKS_SEM_AGUA_MORRE - 3) {
+                    celula.classList.remove(CONFIG.CLASSE_AVISO_MORTE);
+                }
+                if (planta.ticksSemAgua >= CONFIG.TICKS_SEM_AGUA_MORRE) {
+                    celula.classList.remove(CONFIG.CLASSE_AVISO_MORTE);
+                    removerSpritePlantaCelula(celula);
+                    limparEstadoPlantaCelula(celula);
+                    celula.className = '';
+                    celula.innerHTML = '';
+                    continue;
+                }
+            }
+        }
+    }
+    if (window.atualizarUI) window.atualizarUI();
+}, CONFIG.INTERVALO_TICK);
+
 window.estadoPlantas = estadoPlantas;
-window.FASES_POR_PLANTA = FASES_POR_PLANTA;
+window.FASES_POR_PLANTA = CONFIG.FASES_POR_PLANTA;
 window.adicionarSpritePlantaCelula = adicionarSpritePlantaCelula;
 window.removerSpritePlantaCelula = removerSpritePlantaCelula;
 window.limparEstadoPlantaCelula = limparEstadoPlantaCelula;
