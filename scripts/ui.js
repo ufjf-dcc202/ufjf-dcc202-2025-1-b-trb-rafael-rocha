@@ -80,6 +80,7 @@ function aoClicarCelula(celula) {
     const coluna = Array.from(tr.children).indexOf(celula);
     const key = `${linha}-${coluna}`;
 
+    //Colheita
     if (window.estadoPlantas[key] && window.estadoPlantas[key].fase === window.FASES_POR_PLANTA) {
         const tipo = window.estadoPlantas[key].tipo;
         const valorVenda = CONFIG_UI.precosVenda[tipo];
@@ -92,6 +93,7 @@ function aoClicarCelula(celula) {
         return;
     }
 
+    //Regar
     if (modoRegar && window.estadoPlantas[key]) {
         const planta = window.estadoPlantas[key];
         planta.regado = true;
@@ -101,6 +103,7 @@ function aoClicarCelula(celula) {
         return;
     }
 
+    //Remoção
     if (celula.className === 'pedra' || celula.className === 'erva') {
         window.removerSpritePlantaCelula(celula);
         window.limparEstadoPlantaCelula(celula);
@@ -109,6 +112,7 @@ function aoClicarCelula(celula) {
         return;
     }
 
+    //Preparar solo
     if (celula.className === '' && !sementeSelecionada) {
         window.removerSpritePlantaCelula(celula);
         window.limparEstadoPlantaCelula(celula);
@@ -117,6 +121,7 @@ function aoClicarCelula(celula) {
         return;
     }
 
+    //Plantio
     if (sementeSelecionada) {
         if (celula.className !== 'preparado') return;
 
