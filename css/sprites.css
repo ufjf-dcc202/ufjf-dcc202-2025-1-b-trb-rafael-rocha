@@ -8,6 +8,7 @@
     z-index: 2;
     display: block;
 }
+
 .vela-animada img {
     position: absolute;
     left: 0;
@@ -16,12 +17,14 @@
     height: 100%;
     pointer-events: none;
 }
+
 .candle-off, .candle-on {
     left: 0 !important;
     top: 0 !important;
     width: 100% !important;
     height: 100% !important;
 }
+
 .candle-fire {
     position: absolute;
     left: 0;
@@ -34,6 +37,7 @@
     animation: candle-fire-anim 0.5s steps(1) infinite;
     pointer-events: none;
 }
+
 @keyframes candle-fire-anim {
     0% { background-position: 0 0; }
     50% { background-position: -100% 0; }
@@ -48,19 +52,20 @@
     height: 45px;
     z-index: 2;
 }
+
 .chicken-sprite { left: 25vw; top: 75vh; width: 35px; height: 35px; }
 .cow-sprite { left: 50vw; top: 85vh; width: 60px; height: 45px; }
 .pig-sprite { left: 35vw; top: 65vh; width: 40px; height: 35px; }
 .sheep-sprite { left: 65vw; top: 75vh; width: 45px; height: 40px; }
 
 .chicken-sprite.idle { left: 20vw; top: 75vh; }
-.chicken-sprite.move { left: 25vw; top: 75vh; }
+.chicken-sprite.move { left: 25vw; top: 95vh; }
 .cow-sprite.idle { left: 45vw; top: 85vh; }
-.cow-sprite.move { left: 50vw; top: 85vh; }
+.cow-sprite.move { left: 50vw; top: 90vh; }
 .pig-sprite.idle { left: 30vw; top: 65vh; }
-.pig-sprite.move { left: 35vw; top: 65vh; }
+.pig-sprite.move { left: 35vw; top: 10vh; }
 .sheep-sprite.idle { left: 60vw; top: 75vh; }
-.sheep-sprite.move { left: 65vw; top: 75vh; }
+.sheep-sprite.move { left: 65vw; top: 13vh; }
 
 .chicken-frame, .cow-frame, .pig-frame, .sheep-frame {
     width: 100%;
@@ -70,18 +75,23 @@
     background-position: 0 0;
     animation: animal-sprite-anim-2x2 1s steps(1) infinite;
 }
+
 .chicken-frame {
     background-image: url('../assets/Animals/chicken.png');
 }
+
 .cow-frame {
     background-image: url('../assets/Animals/cow.png');
 }
+
 .pig-frame {
     background-image: url('../assets/Animals/pig.png');
 }
+
 .sheep-frame {
     background-image: url('../assets/Animals/sheep.png');
 }
+
 @keyframes animal-sprite-anim-2x2 {
     0%   { background-position:   0%   0%; }
     25%  { background-position: 100%   0%; }
@@ -95,6 +105,7 @@
     background-position-y: 0% !important;
     animation: animal-sprite-idle 2s steps(1) infinite;
 }
+
 @keyframes animal-sprite-idle {
     0%   { background-position-x: 0%; }
     50%  { background-position-x: 100%; }
@@ -106,13 +117,13 @@
     background-position-y: 100% !important;
     animation: animal-sprite-move 0.8s steps(1) infinite;
 }
+
 @keyframes animal-sprite-move {
     0%   { background-position-x: 0%; }
     50%  { background-position-x: 100%; }
     100% { background-position-x: 0%; }
 }
 
-/* Padronização: todos os animais usam o mesmo ciclo de movimento/idle */
 .animal-sprite.move {
     animation: animal-move-idle-cycle 30s linear infinite;
 }
