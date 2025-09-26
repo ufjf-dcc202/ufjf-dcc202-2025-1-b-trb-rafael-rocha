@@ -1,11 +1,3 @@
-const CONFIG = {
-    CLASSE_AVISO_MORTE: 'planta-perigo',
-    TICKS_SEM_AGUA_MORRE: 10,
-    FASES_POR_PLANTA: 5,
-    TEMPO_PARA_AVANCAR: 1,
-    INTERVALO_TICK: 1000,
-};
-
 window.dinheiroJogador = 7;
 window.tickAtual = 0;
 

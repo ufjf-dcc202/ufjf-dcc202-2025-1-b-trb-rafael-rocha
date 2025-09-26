@@ -1,15 +1,3 @@
-const CONFIG_UI = {
-    precosVenda: {
-        cenoura: 8,
-        tomate: 12,
-        batata: 17,
-    },
-    tamanhoTabela: 12,
-    chancePedra: 0.08,
-    chanceErva: 0.18,
-    corModoRegar: '#2196f3',
-};
-
 let sementeSelecionada = null;
 let modoRegar = false;
 
