@@ -1,4 +1,4 @@
-const CONFIG = {
+export const CONFIG = {
     CLASSE_AVISO_MORTE: 'planta-perigo',
     TICKS_SEM_AGUA_MORRE: 10,
     FASES_POR_PLANTA: 5,
@@ -6,7 +6,7 @@ const CONFIG = {
     INTERVALO_TICK: 1000,
 };
 
-const CONFIG_UI = {
+export const CONFIG_UI = {
     precosVenda: {
         cenoura: 8,
         tomate: 12,

@@ -1,3 +1,5 @@
+import { CONFIG_UI } from './config.js';
+
 let sementeSelecionada = null;
 let modoRegar = false;
 

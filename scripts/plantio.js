@@ -1,3 +1,5 @@
+import { CONFIG } from './config.js';
+
 window.dinheiroJogador = 7;
 window.tickAtual = 0;
 
