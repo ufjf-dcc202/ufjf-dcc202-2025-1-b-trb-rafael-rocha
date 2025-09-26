@@ -1,4 +1,5 @@
 import { CONFIG_UI } from './config.js';
+import { estadoPlantas, jogador, FASES_POR_PLANTA, adicionarSpritePlantaCelula, removerSpritePlantaCelula, limparEstadoPlantaCelula, setUIUpdater } from './plantio.js';
 
 let sementeSelecionada = null;
 let modoRegar = false;
@@ -12,10 +13,12 @@ function atualizarTextoElemento(id, texto) {
     if (elemento) elemento.textContent = texto;
 }
 
-window.atualizarUI = function() {
-    atualizarTextoElemento('timer-texto', 'Tempo: ' + (window.tickAtual || 0));
-    atualizarTextoElemento('dinheiro-texto', 'Dinheiro: R$ ' + (window.dinheiroJogador || 0));
-};
+function atualizarUI() {
+    atualizarTextoElemento('timer-texto', 'Tempo: ' + (jogador.tickAtual || 0));
+    atualizarTextoElemento('dinheiro-texto', 'Dinheiro: R$ ' + (jogador.dinheiro || 0));
+}
+
+setUIUpdater(atualizarUI);
 
 function criarCelula() {
     const celula = document.createElement('td');
@@ -78,21 +81,21 @@ function aoClicarCelula(celula) {
     const key = `${linha}-${coluna}`;
 
     //Colheita
-    if (window.estadoPlantas[key] && window.estadoPlantas[key].fase === window.FASES_POR_PLANTA) {
-        const tipo = window.estadoPlantas[key].tipo;
+    if (estadoPlantas[key] && estadoPlantas[key].fase === FASES_POR_PLANTA) {
+        const tipo = estadoPlantas[key].tipo;
         const valorVenda = CONFIG_UI.precosVenda[tipo];
-        window.removerSpritePlantaCelula(celula);
-        window.limparEstadoPlantaCelula(celula);
+        removerSpritePlantaCelula(celula);
+        limparEstadoPlantaCelula(celula);
         celula.className = '';
         celula.innerHTML = '';
-        if (window.dinheiroJogador !== undefined) window.dinheiroJogador += valorVenda;
-        if (window.atualizarUI) window.atualizarUI();
+        if (jogador.dinheiro !== undefined) jogador.dinheiro += valorVenda;
+            atualizarUI();
         return;
     }
 
     //Regar
-    if (modoRegar && window.estadoPlantas[key]) {
-        const planta = window.estadoPlantas[key];
+    if (modoRegar && estadoPlantas[key]) {
+        const planta = estadoPlantas[key];
         planta.regado = true;
         planta.ticksSemAgua = 0;
         celula.classList.add('regado');
@@ -102,8 +105,8 @@ function aoClicarCelula(celula) {
 
     //Remoção
     if (celula.className === 'pedra' || celula.className === 'erva') {
-        window.removerSpritePlantaCelula(celula);
-        window.limparEstadoPlantaCelula(celula);
+        removerSpritePlantaCelula(celula);
+        limparEstadoPlantaCelula(celula);
         celula.className = '';
         celula.innerHTML = '';
         return;
@@ -111,8 +114,8 @@ function aoClicarCelula(celula) {
 
     //Preparar solo
     if (celula.className === '' && !sementeSelecionada) {
-        window.removerSpritePlantaCelula(celula);
-        window.limparEstadoPlantaCelula(celula);
+            removerSpritePlantaCelula(celula);
+            limparEstadoPlantaCelula(celula);
         celula.className = 'preparado';
         celula.innerHTML = '';
         return;
@@ -125,13 +128,13 @@ function aoClicarCelula(celula) {
         const botao = Array.from(botoesSementes).find(b => b.getAttribute('data-semente') === sementeSelecionada);
         const preco = botao && botao.hasAttribute('data-preco') ? parseInt(botao.getAttribute('data-preco')) : 7;
 
-        if (window.dinheiroJogador !== undefined && window.dinheiroJogador >= preco) {
-            window.dinheiroJogador -= preco;
-            if (window.atualizarUI) window.atualizarUI();
+        if (jogador.dinheiro !== undefined && jogador.dinheiro >= preco) {
+            jogador.dinheiro -= preco;
+            atualizarUI();
             celula.className = sementeSelecionada;
             celula.innerHTML = '';
-            window.adicionarSpritePlantaCelula(celula, sementeSelecionada);
-            window.estadoPlantas[key] = { tipo: sementeSelecionada, fase: 1, regado: false, ticks: 0 };
+            adicionarSpritePlantaCelula(celula, sementeSelecionada);
+            estadoPlantas[key] = { tipo: sementeSelecionada, fase: 1, regado: false, ticks: 0 };
         }
     }
 }

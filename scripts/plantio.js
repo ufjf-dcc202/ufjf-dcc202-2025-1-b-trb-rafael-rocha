@@ -1,11 +1,15 @@
 import { CONFIG } from './config.js';
 
-window.dinheiroJogador = 7;
-window.tickAtual = 0;
+const jogador = { dinheiro: 7, tickAtual: 0 };
 
 const estadoPlantas = {};
 const plantasCanteiro = document.querySelector('.plantas-canteiro');
 const tabelaCanteiro = document.querySelector('table.canteiro');
+
+let _uiUpdater = null;
+function setUIUpdater(cb) {
+    _uiUpdater = typeof cb === 'function' ? cb : null;
+}
 
 function obterLinhaColuna(celula) {
     if (celula.dataset && typeof celula.dataset.linha !== 'undefined') {
@@ -94,7 +98,7 @@ function limparEstadoPlantaCelula(celula) {
 }
 
 setInterval(() => {
-    window.tickAtual++;
+    jogador.tickAtual++;
     for (const key in estadoPlantas) {
         const planta = estadoPlantas[key];
         if (planta.ticksSemAgua === undefined) planta.ticksSemAgua = 0;
@@ -131,7 +135,7 @@ setInterval(() => {
             }
         }
     }
-    if (window.atualizarUI) window.atualizarUI();
+    if (_uiUpdater) _uiUpdater();
 }, CONFIG.INTERVALO_TICK);
 
 function reajustarSprites() {
@@ -157,8 +161,12 @@ window.addEventListener('resize', () => {
     });
 });
 
-window.estadoPlantas = estadoPlantas;
-window.FASES_POR_PLANTA = CONFIG.FASES_POR_PLANTA;
-window.adicionarSpritePlantaCelula = adicionarSpritePlantaCelula;
-window.removerSpritePlantaCelula = removerSpritePlantaCelula;
-window.limparEstadoPlantaCelula = limparEstadoPlantaCelula;
+export const FASES_POR_PLANTA = CONFIG.FASES_POR_PLANTA;
+export {
+    jogador,
+    estadoPlantas,
+    setUIUpdater,
+    adicionarSpritePlantaCelula,
+    removerSpritePlantaCelula,
+    limparEstadoPlantaCelula,
+};
