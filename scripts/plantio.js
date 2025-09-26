@@ -105,7 +105,7 @@ setInterval(() => {
         const planta = estadoPlantas[key];
         if (planta.ticksSemAgua === undefined) planta.ticksSemAgua = 0;
         if (planta.fase < CONFIG.FASES_POR_PLANTA) {
-            const [linha, coluna] = key.split('-').map(Number);
+            const [linha, coluna] = parseKey(key);
             const celula = tabelaCanteiro.rows[linha].cells[coluna];
             if (planta.regado) {
                 planta.ticks++;
@@ -139,6 +139,29 @@ setInterval(() => {
     }
     if (window.atualizarUI) window.atualizarUI();
 }, CONFIG.INTERVALO_TICK);
+
+function reajustarSprites() {
+    const sprites = plantasCanteiro.querySelectorAll('[data-linha][data-coluna]');
+    sprites.forEach(sprite => {
+        const linha = Number(sprite.dataset.linha);
+        const coluna = Number(sprite.dataset.coluna);
+        const celula = tabelaCanteiro.rows[linha] && tabelaCanteiro.rows[linha].cells[coluna];
+        if (!celula) return;
+        const cellWidth = celula.offsetWidth;
+        const cellHeight = celula.offsetHeight;
+        sprite.style.left = `${coluna * cellWidth + (cellWidth - 24) / 2}px`;
+        sprite.style.top = `${linha * cellHeight + (cellHeight + 16) / 2}px`;
+    });
+}
+
+let _resizeRaf = null;
+window.addEventListener('resize', () => {
+    if (_resizeRaf) cancelAnimationFrame(_resizeRaf);
+    _resizeRaf = requestAnimationFrame(() => {
+        reajustarSprites();
+        _resizeRaf = null;
+    });
+});
 
 window.estadoPlantas = estadoPlantas;
 window.FASES_POR_PLANTA = CONFIG.FASES_POR_PLANTA;
