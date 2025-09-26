@@ -35,7 +35,6 @@ function criarCelula() {
     } else if (aleatorio < CONFIG_UI.chanceErva) {
         celula.className = 'erva';
     }
-    celula.addEventListener('click', () => aoClicarCelula(celula));
     return celula;
 }
 
@@ -43,10 +42,19 @@ function criarTabela() {
     for (let linha = 0; linha < CONFIG_UI.tamanhoTabela; linha++) {
         const elementoLinha = document.createElement('tr');
         for (let coluna = 0; coluna < CONFIG_UI.tamanhoTabela; coluna++) {
-            elementoLinha.appendChild(criarCelula());
+            const cel = criarCelula();
+            cel.dataset.linha = String(linha);
+            cel.dataset.coluna = String(coluna);
+            elementoLinha.appendChild(cel);
         }
         corpoTabela.appendChild(elementoLinha);
     }
+
+    corpoTabela.addEventListener('click', (e) => {
+        const td = e.target.closest('td');
+        if (!td || !corpoTabela.contains(td)) return;
+        aoClicarCelula(td);
+    });
 }
 
 function alternarModoRegar() {
@@ -75,9 +83,8 @@ function selecionarSemente(botao) {
 }
 
 function aoClicarCelula(celula) {
-    const tr = celula.parentElement;
-    const linha = Array.from(tr.parentElement.children).indexOf(tr);
-    const coluna = Array.from(tr.children).indexOf(celula);
+    const linha = Number(celula.dataset.linha);
+    const coluna = Number(celula.dataset.coluna);
     const key = `${linha}-${coluna}`;
 
     //Colheita

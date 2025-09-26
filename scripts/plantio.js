@@ -14,10 +14,21 @@ const plantasCanteiro = document.querySelector('.plantas-canteiro');
 const tabelaCanteiro = document.querySelector('table.canteiro');
 
 function obterLinhaColuna(celula) {
+    if (celula.dataset && typeof celula.dataset.linha !== 'undefined') {
+        return { linha: Number(celula.dataset.linha), coluna: Number(celula.dataset.coluna) };
+    }
     const tr = celula.parentElement;
     const linha = Array.from(tr.parentElement.children).indexOf(tr);
     const coluna = Array.from(tr.children).indexOf(celula);
     return { linha, coluna };
+}
+
+function keyFromCoords(linha, coluna) {
+    return `${linha}-${coluna}`;
+}
+
+function parseKey(key) {
+    return key.split('-').map(Number);
 }
 
 function criarSpriteDiv(classe, linha, coluna, cellWidth, cellHeight) {
@@ -58,7 +69,7 @@ function adicionarSpritePlantaCelula(celula, tipo) {
 }
 
 function atualizarSpriteFase(key, planta) {
-    const [linha, coluna] = key.split('-').map(Number);
+    const [linha, coluna] = parseKey(key);
     const celula = tabelaCanteiro.rows[linha].cells[coluna];
     removerSpritePlantaCelula(celula);
 
@@ -76,7 +87,7 @@ function atualizarSpriteFase(key, planta) {
 }
 
 function atualizarRegadoCelula(key, regado) {
-    const [linha, coluna] = key.split('-').map(Number);
+    const [linha, coluna] = parseKey(key);
     const celula = tabelaCanteiro.rows[linha].cells[coluna];
     if (regado) celula.classList.add('regado');
     else celula.classList.remove('regado');
@@ -84,7 +95,7 @@ function atualizarRegadoCelula(key, regado) {
 
 function limparEstadoPlantaCelula(celula) {
     const { linha, coluna } = obterLinhaColuna(celula);
-    const key = `${linha}-${coluna}`;
+    const key = keyFromCoords(linha, coluna);
     delete estadoPlantas[key];
 }
 
